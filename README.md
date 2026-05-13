@@ -1,4 +1,3 @@
-cat << 'EOF' > README.md
 # 🗳️Blockchain-based E-Voting System
 
 Ứng dụng giải quyết bài toán minh bạch trong bầu cử bằng công nghệ Blockchain, hỗ trợ đa nhiệm kỳ và đồng bộ dữ liệu Real-time.
