@@ -1,65 +1,63 @@
-🗳️ Blockchain-based E-Voting System
-Hệ thống Bầu cử Điện tử Phi tập trung - Ứng dụng kết hợp sức mạnh của công nghệ Blockchain (Ethereum/Solidity) và giao diện React hiện đại để đảm bảo tính minh bạch, bảo mật và trải nghiệm người dùng Real-time.
+cat << 'EOF' > README.md
+# 🗳️Blockchain-based E-Voting System
 
-🌟 Tính năng nổi bật
-Quản lý Cuộc bầu cử (Multi-Session): Admin có thể khởi tạo nhiệm kỳ mới, đặt tên cuộc bầu cử và thiết lập danh sách ứng viên linh hoạt mà không cần deploy lại hợp đồng.
+Ứng dụng giải quyết bài toán minh bạch trong bầu cử bằng công nghệ Blockchain, hỗ trợ đa nhiệm kỳ và đồng bộ dữ liệu Real-time.
 
-Nạp Cử tri hàng loạt (Batch Whitelist): Hỗ trợ upload file Excel/CSV để cấp quyền bầu cử cho hàng trăm sinh viên cùng lúc, tối ưu hóa phí Gas.
+## 🌟 Tính năng cốt lõi
 
-Đồng bộ Real-time (Ajax-style): Số lượt bình chọn và trạng thái hòm phiếu tự động cập nhật trên mọi thiết bị ngay khi có biến động trên Blockchain mà không cần tải lại trang (F5).
+* **Quản lý Đa nhiệm kỳ (Multi-Session):** Cho phép Admin khởi tạo các cuộc bầu cử mới (Lớp trưởng, Lớp phó, Đoàn khoa...) trên cùng một Smart Contract mà không cần deploy lại.
+* **Cấp quyền hàng loạt (Batch Whitelist):** Tích hợp tính năng Upload file Excel/CSV để nạp danh sách hàng trăm ví cử tri cùng lúc, giúp tiết kiệm thời gian và phí Gas.
+* **Đồng bộ Real-time (Ajax-style):** Sử dụng cơ chế lắng nghe Event từ Blockchain để cập nhật số phiếu và trạng thái hòm phiếu ngay lập tức trên mọi thiết bị mà không cần F5.
+* **Blockchain Explorer tích hợp:** Theo dõi lịch sử giao dịch trực tiếp (TxHash) ngay trên giao diện, đảm bảo tính công khai và minh bạch.
+* **Quản trị linh hoạt:** Admin có quyền thêm mới hoặc chỉnh sửa tên ứng cử viên ngay cả khi cuộc bầu cử chưa bắt đầu.
 
-Blockchain Explorer (Live): Tích hợp bảng theo dõi lịch sử giao dịch trực tiếp từ mạng lưới, minh bạch hóa mọi thao tác của cử tri và admin.
+## 🛠️ Công nghệ sử dụng
 
-Quản lý Ứng viên: Cho phép Admin thêm mới hoặc sửa tên ứng cử viên ngay trên giao diện trước khi cuộc bầu cử bắt đầu.
+* **Smart Contract:** Solidity (v0.8.24) triển khai trên mạng Ethereum Sepolia.
+* **Frontend:** React (Vite + TypeScript) giúp tối ưu hiệu năng và quản lý kiểu dữ liệu chặt chẽ.
+* **Thư viện kết nối:** Ethers.js (v6) để giao tiếp với mạng lưới Blockchain.
+* **Xử lý dữ liệu:** PapaParse hỗ trợ đọc và phân tách địa chỉ ví từ file CSV/Excel.
+* **Giao diện:** CSS Modern với biến số (Variables) tạo môi trường digital minimalist và thẩm mỹ.
 
-🛠️ Công nghệ sử dụng
-Smart Contract: Solidity (v0.8.24).
+## 🚀 Hướng dẫn cài đặt & Chạy dự án
 
-Blockchain Network: Ethereum Sepolia Testnet.
+### 1. Chuẩn bị
+* Cài đặt **Node.js** (v18+) và ví **MetaMask**.
+* Đảm bảo ví có một ít **Sepolia ETH** để làm phí giao dịch.
 
-Frontend: React (Vite + TypeScript), Ethers.js (v6).
-
-Công cụ phát triển: Hardhat, Remix IDE, Vercel.
-
-Thư viện hỗ trợ: PapaParse (Xử lý CSV), CSS Variables (Aesthetic UI).
-
-🚀 Hướng dẫn cài đặt
-1. Yêu cầu hệ thống
-Node.js (v18 trở lên).
-
-Ví MetaMask đã cấu hình mạng Sepolia và có Sepolia ETH.
-
-2. Cài đặt Frontend
-Bash
+### 2. Cài đặt môi trường
+\`\`\`bash
 # Di chuyển vào thư mục frontend
 cd frontend
 
-# Cài đặt các thư viện
+# Cài đặt các thư viện cần thiết
 npm install
+\`\`\`
 
-# Chạy ứng dụng ở môi trường local
+### 3. Cấu hình Smart Contract
+* Deploy file `Voting.sol` lên Remix IDE (chọn môi trường Injected Provider - MetaMask).
+* Copy địa chỉ hợp đồng sau khi deploy thành công.
+* Mở file `src/App.tsx`, tìm biến `CONTRACT_ADDRESS` và dán địa chỉ mới vào.
+* Cập nhật nội dung ABI trong file `src/Voting.json` từ Remix.
+
+### 4. Khởi chạy
+\`\`\`bash
+# Chạy ở môi trường phát triển
 npm run dev
-3. Cấu hình Smart Contract
-Deploy file Voting.sol lên mạng Sepolia thông qua Remix hoặc Hardhat.
+\`\`\`
 
-Cập nhật địa chỉ hợp đồng mới vào biến CONTRACT_ADDRESS trong file App.tsx.
+## 📖 Hướng dẫn sử dụng cho Admin
 
-Cập nhật file Voting.json (ABI) nếu có thay đổi logic contract.
+1.  **Thiết lập:** Nhập tên cuộc bầu cử và danh sách ứng viên (cách nhau bởi dấu phẩy) rồi nhấn **Xác nhận Reset**.
+2.  **Cấp quyền:** Chọn file CSV chứa danh sách ví để thực hiện **Batch Whitelist**.
+3.  **Điều khiển:** Nhấn nút **Bắt đầu** để mở hòm phiếu. Khi kết thúc thời gian bình chọn, nhấn **Kết thúc** để đóng hòm và chốt kết quả.
 
-📖 Hướng dẫn sử dụng
-Kết nối ví
-Người dùng nhấn "Kết nối ví MetaMask" để đăng nhập. Hệ thống sẽ tự động nhận diện quyền Admin dựa trên địa chỉ ví.
+## 👤 Thông tin tác giả
 
-Khu vực Admin
-Sử dụng nút Bắt đầu/Kết thúc để điều khiển hòm phiếu.
+* **Tác giả:** Nhóm 11
+* **Đơn vị:** Khoa Công nghệ thông tin - Đại học Tôn Đức Thắng (TDTU)
+* **Lĩnh vực nghiên cứu:** Software Engineering, Blockchain Technology, AI & Machine Learning.
 
-Sử dụng tính năng Nạp cử tri từ Excel để cấp quyền biểu quyết hàng loạt.
-
-Nhập tên và danh sách mới để Reset hệ thống cho nhiệm kỳ bầu cử tiếp theo.
-
-Khu vực Cử tri
-Theo dõi danh sách ứng cử viên và số phiếu On-chain.
-
-Nhấn Bầu chọn và xác nhận trên MetaMask (chỉ thực hiện được khi đã được Whitelist và hòm phiếu đang mở).
-
-Lĩnh vực nghiên cứu: Software Engineering, Blockchain Technology, AI & Machine Learning.
+---
+*Dự án được thực hiện với mục tiêu minh bạch hóa quy trình bầu cử trong môi trường giáo dục.*
+EOF
