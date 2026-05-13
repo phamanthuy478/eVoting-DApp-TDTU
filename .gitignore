@@ -1,0 +1,16 @@
+# Dependency
+node_modules/
+dist/
+build/
+
+# Env & Secret
+.env
+.env.local
+
+# IDE
+.vscode/
+.DS_Store
+
+# Hardhat/Foundry (nếu có)
+artifacts/
+cache/

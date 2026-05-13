@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --border:#1e3a5f;
+  --accent:#00d4ff; --accent2:#7c3aed; --green:#00ff88; --red:#ff4757;
+  --text:#e2e8f0; --muted:#64748b; --card:#141e2e;
+}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* LOGIN SCREEN */
+.login-screen{display:flex;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0e1a 0%,#0d1b2a 50%,#0a0e1a 100%)}
+.login-box{width:100%;max-width:420px;padding:20px}
+.logo-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px;box-shadow:0 0 40px rgba(0,212,255,0.3)}
+.logo-title{font-size:24px;font-weight:700;text-align:center;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:20px;transition:0.2s}
+.btn-primary:hover{opacity:0.9;transform:translateY(-2px)}
+
+/* MAIN APP */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.wallet-badge{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono'}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:10px}
+.nav-btn{padding:14px 16px;background:none;border:none;color:var(--muted);font-weight:600;cursor:pointer;border-bottom:2px solid transparent}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.main{padding:24px;max-width:1000px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card-title{font-size:16px;font-weight:600;margin-bottom:16px;color:var(--accent)}
+
+/* ADMIN INPUT */
+.input-group{display:flex;gap:10px;margin-bottom:10px}
+.input-group input{flex:1;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'JetBrains Mono';outline:none}
+.btn-admin{padding:0 20px;background:var(--green);border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer}
+
+/* CANDIDATES */
+.candidate-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.candidate-name{font-size:18px;font-weight:600;margin-bottom:4px}
+.candidate-votes{font-size:14px;color:var(--green);font-family:'JetBrains Mono'}
+.btn-vote{padding:10px 24px;background:linear-gradient(135deg,#00ff88,#00d4ff);border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;transition:0.2s}
+.btn-vote:hover{opacity:0.8}

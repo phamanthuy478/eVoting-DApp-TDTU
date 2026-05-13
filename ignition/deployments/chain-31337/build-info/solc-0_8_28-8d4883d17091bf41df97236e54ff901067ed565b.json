@@ -1,0 +1,49 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-8d4883d17091bf41df97236e54ff901067ed565b",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "toolVersions": {
+    "hardhat": "3.4.5"
+  },
+  "userSourceNameMap": {
+    "contracts/Voting.sol": "project/contracts/Voting.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/Voting.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.24;\r\n\r\ncontract Voting {\r\n    struct Candidate {\r\n        uint256 id;\r\n        string name;\r\n        uint256 voteCount;\r\n    }\r\n\r\n    struct Voter {\r\n        bool isWhitelisted;\r\n        bool hasVoted;\r\n        uint256 votedCandidateId;\r\n    }\r\n\r\n    // --- MỚI: Định nghĩa 3 trạng thái của cuộc bầu cử ---\r\n    enum VotingStatus { NotStarted, InProgress, Ended }\r\n    VotingStatus public status; \r\n\r\n    address public admin;\r\n    mapping(address => Voter) public voters;\r\n    Candidate[] public candidates;\r\n    \r\n    event VoterWhitelisted(address voter);\r\n    event VoteCasted(address voter, uint256 candidateId);\r\n    event StatusChanged(VotingStatus newStatus);\r\n\r\n    modifier onlyAdmin() {\r\n        require(msg.sender == admin, \"Loi: Chi Admin moi co quyen nay!\");\r\n        _;\r\n    }\r\n\r\n    constructor(string[] memory _candidateNames) {\r\n        admin = msg.sender;\r\n        status = VotingStatus.NotStarted; // Mặc định vừa tạo xong là Chưa Bắt Đầu\r\n\r\n        for (uint256 i = 0; i < _candidateNames.length; i++) {\r\n            candidates.push(Candidate({\r\n                id: i,\r\n                name: _candidateNames[i],\r\n                voteCount: 0\r\n            }));\r\n        }\r\n    }\r\n\r\n    // --- MỚI: Hàm mở hòm phiếu (Chỉ Admin) ---\r\n    function startElection() public onlyAdmin {\r\n        require(status == VotingStatus.NotStarted, \"Loi: Cuoc bau cu da bat dau hoac da ket thuc\");\r\n        status = VotingStatus.InProgress;\r\n        emit StatusChanged(status);\r\n    }\r\n\r\n    // --- MỚI: Hàm đóng hòm phiếu (Chỉ Admin) ---\r\n    function endElection() public onlyAdmin {\r\n        require(status == VotingStatus.InProgress, \"Loi: Cuoc bau cu chua bat dau hoac da ket thuc roi\");\r\n        status = VotingStatus.Ended;\r\n        emit StatusChanged(status);\r\n    }\r\n\r\n    function whitelistVoter(address _voter) public onlyAdmin {\r\n        require(status != VotingStatus.Ended, \"Loi: Cuoc bau cu da ket thuc, khong the them cu tri\");\r\n        require(!voters[_voter].isWhitelisted, \"Loi: Cu tri nay da duoc them tu truoc\");\r\n        \r\n        voters[_voter].isWhitelisted = true;\r\n        emit VoterWhitelisted(_voter);\r\n    }\r\n\r\n    function vote(uint256 _candidateId) public {\r\n        // --- MỚI: Cử tri chỉ được vote khi trạng thái là InProgress ---\r\n        require(status == VotingStatus.InProgress, \"Loi: Hien tai khong trong thoi gian bo phieu (Hom phieu dang dong)\"); \r\n        require(voters[msg.sender].isWhitelisted, \"Loi: Ban khong co quyen bau cu\");\r\n        require(!voters[msg.sender].hasVoted, \"Loi: Ban da bo phieu roi!\");\r\n        require(_candidateId < candidates.length, \"Loi: Ung cu vien khong hop le\");\r\n\r\n        voters[msg.sender].hasVoted = true;\r\n        voters[msg.sender].votedCandidateId = _candidateId;\r\n        candidates[_candidateId].voteCount += 1;\r\n\r\n        emit VoteCasted(msg.sender, _candidateId);\r\n    }\r\n\r\n    function getAllCandidates() public view returns (Candidate[] memory) {\r\n        return candidates;\r\n    }\r\n}"
+      }
+    }
+  }
+}
